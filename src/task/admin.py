@@ -1,3 +1,13 @@
 from django.contrib import admin
 
-# Register your models here.
+from task.models import Task, TaskType
+
+
+@admin.register(Task)
+class TaskAdmin(admin.ModelAdmin):
+    list_display = ("name", "is_completed", "priority", "task_type")
+
+
+@admin.register(TaskType)
+class TaskTypeAdmin(admin.ModelAdmin):
+    list_display = ("name",)
