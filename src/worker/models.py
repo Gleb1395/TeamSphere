@@ -6,12 +6,13 @@ from faker import Faker
 
 
 class Worker(AbstractUser):
-    position = models.ForeignKey("Position",
-                                 on_delete=models.CASCADE,
-                                 related_name="workers",
-                                 null=True,
-                                 blank=True
-                                 )
+    position = models.ForeignKey(
+        "Position",
+        on_delete=models.CASCADE,
+        related_name="workers",
+        null=True,
+        blank=True,
+    )
     objects = UserManager()
 
     class Meta:
@@ -37,12 +38,14 @@ class Worker(AbstractUser):
                 password="password",
                 position=Position.objects.create(
                     name=random.choice(list_position),
-                )
+                ),
             )
 
 
 class Position(models.Model):
-    name = models.CharField(max_length=120, )
+    name = models.CharField(
+        max_length=120,
+    )
     objects = models.Manager()
 
     class Meta:

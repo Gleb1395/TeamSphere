@@ -18,17 +18,12 @@ class Task(models.Model):
     description = models.TextField()
     deadline = models.DateField()
     is_completed = models.BooleanField(default=False)
-    priority = models.SmallIntegerField(
-        choices=Priority.choices,
-        default=Priority.LOW
-    )
+    priority = models.SmallIntegerField(choices=Priority.choices, default=Priority.LOW) # NOQA E501
     task_type = models.ForeignKey(
-        "TaskType",
-        on_delete=models.CASCADE,
-        related_name="task"
+        "TaskType", on_delete=models.CASCADE, related_name="task"
     )
-    assigned = models.ManyToManyField(Worker, related_name='assigned')
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='tasks')
+    assigned = models.ManyToManyField(Worker, related_name="assigned")
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="tasks") # NOQA E501
     objects = models.Manager()
 
     class Meta:
@@ -36,7 +31,7 @@ class Task(models.Model):
         verbose_name_plural = "Tasks"
 
     def __str__(self):
-        return f"{self.name} {self.is_completed} {self.priority} {self.task_type}"
+        return f"{self.name} {self.is_completed} {self.priority} {self.task_type}" # NOQA E501
 
     @staticmethod
     def create_test_task(count: int) -> None:
@@ -54,7 +49,7 @@ class Task(models.Model):
                 deadline=datetime.now(),
                 priority=random.randint(0, 2),
                 project=random.choice(projects),
-                task_type=TaskType.objects.create(name=f"{fake.name()} Task Type"),
+                task_type=TaskType.objects.create(name=f"{fake.name()} Task Type"), # NOQA E501
             )
             task.assigned.add(*selected_workers),
 

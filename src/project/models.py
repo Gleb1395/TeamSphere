@@ -1,5 +1,5 @@
-from datetime import datetime, timedelta
 import random
+from datetime import datetime, timedelta
 
 from django.db import models
 from faker import Faker
@@ -19,8 +19,8 @@ class Project(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     status = models.SmallIntegerField(
-        choices=Status.choices,
-        default=Status.IN_PROGRESS)
+        choices=Status.choices, default=Status.IN_PROGRESS
+    )
     objects = models.Manager()
 
     class Meta:
@@ -28,16 +28,16 @@ class Project(models.Model):
         verbose_name_plural = "Projects"
 
     def __str__(self):
-        return f"{self.name} {self.start_date} {self.end_date} {self.status}"
+        return f"{self.status} {self.name} {self.start_date} {self.end_date} "
 
     @staticmethod
     def create_test_project(count: int) -> None:
         fake = Faker()
-        start_date = datetime.strptime(fake.date(), '%Y-%m-%d')
+        start_date = datetime.strptime(fake.date(), "%Y-%m-%d")
 
         for _ in range(count):
             Project.objects.create(
-                name=f"{fake.word().capitalize()} {fake.word().capitalize()} Project",
+                name=f"{fake.word().capitalize()} {fake.word().capitalize()} Project", # NOQA E501
                 description=fake.text(max_nb_chars=50),
                 start_date=start_date,
                 end_date=start_date + timedelta(days=4),
@@ -48,8 +48,8 @@ class Project(models.Model):
 class Team(models.Model):
     name = models.CharField(max_length=120)
     description = models.TextField()
-    members = models.ManyToManyField(Worker, "members")
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project')
+    members = models.ManyToManyField(Worker, "team")
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="teams") # NOQA E501
     objects = models.Manager()
 
     class Meta:

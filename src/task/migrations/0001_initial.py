@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 (
                     "priority",
                     models.SmallIntegerField(
-                        choices=[(2, "High"), (1, "Medium"), (0, "Low")], default=0
+                        choices=[(2, "High"), (1, "Medium"), (0, "Low")], default=0 # NOQA E501
                     ),
                 ),
             ],

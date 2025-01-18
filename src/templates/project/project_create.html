@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1> TEST </h1>
+  <br>
+  <br>
+  <form action="" method="post" novalidate>
+    {% csrf_token %}
+    <div class="form-group mb-3">
+      <label for="exampleInputText01" class="h5">Project Name</label>
+      {{ form.name }}
+    </div>
+    <div class="form-group mb-3">
+      <label for="exampleInputText01" class="h5">Description Project</label>
+      {{ form.description }}
+    </div>
+    <div class="form-group mb-3">
+      <label for="exampleInputText01" class="h5">Start Date</label>
+      {{ form.start_date }}
+    </div>
+    <div class="form-group mb-3">
+      <label for="exampleInputText01" class="h5">End Date</label>
+      {{ form.end_date }}
+    </div>
+    <div class="form-group mb-3">
+      <label for="exampleInputText01" class="h5">Status Project</label>
+      {{ form.status }}
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary">
+  </form>
+{% endblock %}
