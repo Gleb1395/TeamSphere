@@ -1,0 +1,73 @@
+{% if form.errors %}
+  <h1>ERROS:</h1>
+  {{ form.errors }}
+{% endif %}
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Sign In</title>
+
+  {% include 'includes/head.html' %}
+</head>
+<body class=" ">
+<!-- loader Start -->
+<div id="loading">
+  <div id="loading-center">
+  </div>
+</div>
+<!-- loader END -->
+
+<div class="wrapper">
+  <section class="login-content">
+    <div class="container">
+      <div class="row align-items-center justify-content-center height-self-center">
+        <div class="col-lg-8">
+          <div class="card auth-card">
+            <div class="card-body p-0">
+              <div class="d-flex align-items-center auth-content">
+                <div class="col-lg-6 bg-primary content-left">
+                  <div class="p-3">
+                    <h2 class="mb-2 text-white">Sign In</h2>
+                    <p>Login to stay connected.</p>
+                    <form method="post" action="">
+                      {% csrf_token %}
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="form-group">
+                            <label style="color: white">Username</label>
+                            {{ form.username }}
+                          </div>
+                        </div>
+                        <div class="col-lg-12">
+                          <div class="form-group">
+                            <label style="color: white">Password</label>
+                            {{ form.password }}
+                          </div>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-white">Sign In</button>
+                      <p class="mt-3">
+                        Create an Account <a href="{% url 'worker:sign-up' %}" class="text-white text-underline">Sign
+                        Up</a>
+                      </p>
+                    </form>
+                  </div>
+                </div>
+                <div class="col-lg-6 content-right">
+                  <img src="{% static 'images/login/01.png' %}" class="img-fluid image-right" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% include 'includes/script.html' %}
+</body>
+</html>

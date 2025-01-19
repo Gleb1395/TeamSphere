@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container mt-5">
+    <div class="container mt-5">
+      <!-- Профиль пользователя -->
+      <div class="row">
+        <!-- Левая колонка: Аватар и имя -->
+        <div class="col-lg-4 text-center">
+          <div class="card p-4">
+            <h2>Username</h2>
+            <h3 class="text-primary">{{ worker.username }}</h3>
+            <br>
+            <br>
+            <h3>Status user</h3>
+            {% if worker.status == 1 %}
+              <button type="button" class="btn btn-primary mt-2">Active</button>
+            {% elif worker.status == 2 %}
+              <button type="button" class="btn btn-secondary mt-2">On Leave</button>
+            {% elif worker.status == 3 %}
+              <button type="button" class="btn btn-info mt-2">Terminated</button>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Правая колонка: Детали профиля -->
+        <div class="col-lg-8">
+          <div class="card p-4">
+            <h3 class="card-title text-dark mb-4">Profile Details</h3>
+            <table class="table table-hover">
+              <tbody>
+              <tr>
+                <th>Full Name:</th>
+                <td>{{ worker.first_name }} {{ worker.last_name }}</td>
+              </tr>
+              <tr>
+                <th>Email:</th>
+                <td>{{ worker.email }}</td>
+              </tr>
+              <tr>
+                <th>Phone Number:</th>
+                <td>{{ worker.phone_number }}</td>
+              </tr>
+              <tr>
+                <th>Country:</th>
+                <td>{{ worker.country }}</td>
+              </tr>
+              <tr>
+                <th>Position:</th>
+                <td>{{ worker.position.name }}</td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="text-end">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

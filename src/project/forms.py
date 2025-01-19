@@ -64,6 +64,19 @@ class SearchForm(forms.Form):
         ),
     )
 
+    worker_name = forms.CharField(
+        max_length=100,
+        required=False,
+        label="",
+        widget=forms.TextInput(
+            attrs={
+                "type": "text",
+                "class": "text search-input",
+                "placeholder": "Search by name worker",
+            }
+        ),
+    )
+
     def __init__(self, *args, field=None, **kwargs):
         super().__init__(*args, **kwargs)
         if field is not None:

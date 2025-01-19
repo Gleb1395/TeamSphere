@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-9 col-lg-8">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between">
+            <div class="header-title">
+              <h4 class="card-title">Worker Information</h4>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="new-user-info">
+              <form action="" method="post" novalidate>
+                {% csrf_token %}
+                <div class="form-group">
+                  <label>User Role:</label>
+                  {{ form.position }}
+                </div>
+                <div class="form-group">
+                  <label>User Status:</label>
+                  {{ form.status }}
+                </div>
+                <div class="form-group">
+                  <label>User Team:</label>
+                  {{ form.teams }}
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="fname">First Name:</label>
+                    {{ form.first_name }}
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="fname">Last Name:</label>
+                    {{ form.last_name }}
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="fname">Phone number:</label>
+                    {{ form.phone_number }}
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="add2">Country:</label>
+                    {{ form.country }}
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <label for="email">Email:</label>
+                    {{ form.email }}
+                  </div>
+
+                </div>
+                <hr>
+                <h5 class="mb-3">Security</h5>
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label for="uname">User Name:</label>
+                    {{ form.username }}
+                  </div>
+                </div>
+                <input type="submit" value="Update worker" class="btn btn-primary">
+                <a href="{% url 'worker:worker-list' %}" class="btn btn-secondary">Return worker list</a>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

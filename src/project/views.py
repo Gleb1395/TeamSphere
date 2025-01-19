@@ -22,10 +22,9 @@ class ProjectListView(generic.ListView):
             {"label": "Cancelled", "value": Project.Status.CANCELLED},
         ]
         context["list_status"] = list_status
+
         search_text = self.request.GET.get("project_name", "")
-        context["search_form"] = SearchForm(
-            field=["project_name"], initial={"project_name": search_text}
-        )
+        context["search_form"] = SearchForm(field=["project_name"], initial={"project_name": search_text})
         return context
 
     def get_queryset(self):
@@ -63,9 +62,7 @@ class ProjectDetailView(generic.DetailView):
                 break
         context["color_for_progress"] = color
 
-        project = Project.objects.prefetch_related("teams__members").get(
-            pk=self.kwargs["pk"]
-        )
+        project = Project.objects.prefetch_related("teams__members").get(pk=self.kwargs["pk"])
         worker = Worker.objects.filter(team__project=project)
         context["worker"] = worker
 

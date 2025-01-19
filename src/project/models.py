@@ -18,9 +18,7 @@ class Project(models.Model):
     description = models.TextField()
     start_date = models.DateField()
     end_date = models.DateField()
-    status = models.SmallIntegerField(
-        choices=Status.choices, default=Status.IN_PROGRESS
-    )
+    status = models.SmallIntegerField(choices=Status.choices, default=Status.IN_PROGRESS)
     objects = models.Manager()
 
     class Meta:
@@ -37,7 +35,7 @@ class Project(models.Model):
 
         for _ in range(count):
             Project.objects.create(
-                name=f"{fake.word().capitalize()} {fake.word().capitalize()} Project", # NOQA E501
+                name=f"{fake.word().capitalize()} {fake.word().capitalize()} Project",  # NOQA E501
                 description=fake.text(max_nb_chars=50),
                 start_date=start_date,
                 end_date=start_date + timedelta(days=4),
@@ -49,7 +47,7 @@ class Team(models.Model):
     name = models.CharField(max_length=120)
     description = models.TextField()
     members = models.ManyToManyField(Worker, "team")
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="teams") # NOQA E501
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="teams")  # NOQA E501
     objects = models.Manager()
 
     class Meta:
@@ -63,19 +61,26 @@ class Team(models.Model):
     def create_test_team(count: int) -> None:
         fake = Faker()
         project = Project.objects.all()
-        worker = list(Worker.objects.all())
+        workers = list(Worker.objects.all())
 
         if not project:
-            raise ValueError("No projects, at least 1 is needed ")
-        if not worker:
-            raise ValueError("No workers, at least 1 is needed ")
-        num_workers = random.randint(2, 5)
-        selected_workers = random.sample(worker, min(num_workers, len(worker)))
+            raise ValueError("No projects, at least 1 is needed")
+        if not workers:
+            raise ValueError("No workers, at least 1 is needed")
 
+        teams = []
         for _ in range(count):
             team = Team.objects.create(
                 name=fake.word().capitalize(),
                 description=fake.text(max_nb_chars=50),
                 project=random.choice(project),
             )
-            team.members.add(*selected_workers)
+            teams.append(team)
+
+        for i, worker in enumerate(workers):
+            team = teams[i % len(teams)]
+            team.members.add(worker)
+
+        for team in teams:
+            additional_workers = random.sample(workers, random.randint(1, 2))
+            team.members.add(*additional_workers)
